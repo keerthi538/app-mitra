@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prajakeeya</title>
+</head>
+<body>
+    <h1>Admin1 dashboard</h1>
+
+    <!-- <form action="/addScheme" method="POST"> <br> -->
+        <input type="text" name="name" placeholder="scheme name" id="name"><br>
+        <input type="text" name="yt_url" placeholder="yt_url" id="yt_url"><br>
+        <input type="text" name="fee" placeholder="fee_to_be_paid" id="fee"><br>
+        <input type="textarea" name="description" placeholder="description" id="description"><br>
+        <input type="submit" id="submit"><br>
+    <!-- </form> -->
+
+
+    <input type="text" name="admin2-name" placeholder="admin2 name" id="admin2-name"><br>
+    <input type="password" name="psw" placeholder="admin2 password" id="admin2-psw"><br>
+    <input type="text" name="panchayath" placeholder="admin2 panchayath" id="admin2-panchayath"><br>
+    <input type="submit" id="submit-admin2"><br>
+
+
+
+    <form action="/admin1Logout" method="POST">
+        <input type="submit" value="Logout">
+    </form>
+
+
+    
+        
+    <script>
+        console.log('hello')
+        //adding admin2
+        const submitAdmin2 = document.getElementById('submit-admin2')
+
+        const admin2Name = document.getElementById('admin2-name')
+        const admin2psw = document.getElementById('admin2-psw')
+        const admin2panchayath = document.getElementById('admin2-panchayath')
+
+        submitAdmin2.addEventListener('click', () =>{
+            const admin2data = {
+                username: admin2Name.value,
+                password: admin2psw.value,
+                panchayath: admin2panchayath.value
+            }
+            console.log(admin2data)
+
+            fetch('/registerAdmin2', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(admin2data)
+            })
+            .then(response => {
+                admin2Name.value=""
+                admin2psw.value=""
+                admin2panchayath.value=""
+                console.log(response)
+            })
+            .catch(err => console.log(err))
+        })
+    </script>
+
+
+
+    <script>
+        //adding schemes
+        const submit = document.getElementById('submit');
+        
+        submit.addEventListener('click', () =>{
+            const name = document.getElementById('name');
+            const yt_url = document.getElementById('yt_url');
+            const fee = document.getElementById('fee');
+            const description = document.getElementById('description');
+
+            const data = {
+                name: name.value,
+                yt_url: yt_url.value,
+                fee: fee.value,
+                description: description.value
+            }
+
+            fetch('/addScheme', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response =>{
+                name.value=""
+                yt_url.value=""
+                fee.value=""
+                description.value=""
+                alert("successfully added");
+            })
+            .catch(err => alert(err))
+        })
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All schemes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="/schemelist.css" />
+    <style>
+        @charset "UTF-8";
+        body {
+          color: #2c3e50;
+          background: #ecf0f1;
+          padding: 0 1em 1em;
+        }
+
+        h1 {
+          margin: 0;
+          line-height: 2;
+          text-align: center;
+        }
+
+        h2 {
+          margin: 0 0 0.5em;
+          font-weight: normal;
+        }
+
+        input {
+          position: absolute;
+          opacity: 0;
+          z-index: -1;
+        }
+
+        .row {
+          display: flex;
+        }
+        .row .col {
+          flex: 1;
+        }
+        .row .col:last-child {
+          margin-left: 1em;
+        }
+
+        /* Accordion styles */
+        .tabs {
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 4px 4px -2px rgba(0, 0, 0, 0.5);
+        }
+
+        .tab {
+          width: 100%;
+          color: white;
+          overflow: hidden;
+        }
+        .tab-label {
+          display: flex;
+          justify-content: space-between;
+          padding: 1em;
+          background: #2c3e50;
+          font-weight: bold;
+          cursor: pointer;
+          /* Icon */
+        }
+        .tab-label:hover {
+          background: #1a252f;
+        }
+        .tab-label::after {
+          content: "❯";
+          width: 1em;
+          height: 1em;
+          text-align: center;
+          transition: all 0.35s;
+        }
+        .tab-content {
+          max-height: 0;
+          padding: 0 1em;
+          color: #2c3e50;
+          background: white;
+          transition: all 0.35s;
+        }
+        .tab-close {
+          display: flex;
+          justify-content: flex-end;
+          padding: 1em;
+          font-size: 0.75em;
+          background: #2c3e50;
+          cursor: pointer;
+        }
+        .tab-close:hover {
+          background: #1a252f;
+        }
+
+        input:checked + .tab-label {
+          background: #1a252f;
+        }
+        input:checked + .tab-label::after {
+          transform: rotate(90deg);
+        }
+        input:checked ~ .tab-content {
+          max-height: 100vh;
+          padding: 1em;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="/">Prajaakeeya</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="col-auto">
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Schemes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Members</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/complaint">Complaints</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+<!-- ----------------------------------------------------------------- -->
+
+
+
+
+<div class="row">
+    <div class="tabs">
+      <% schemeList.forEach(scheme =>{%>
+        <div class="tab">
+          <input type="checkbox" id="<%= scheme.id %>">
+          <label class="tab-label" for="<%= scheme.id %>"><%= scheme.name.toUpperCase() %></label>
+          <div class="tab-content" style="display: flex; flex-wrap: wrap;">
+            <div class = "video">
+              <iframe width="540" height="315" src="https://www.youtube-nocookie.com/embed/<%= scheme.yt_url %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div style="padding: 10px; max-width: 50%;">
+              <p>Fee to be paid: <%= scheme.fee %> &#8377;</p>
+              <p><%= scheme.description %></p>
+            </div>
+            
+          </div>
+        </div>
+      <%})%>
+      
+  </div>
+  
+</div>
+</body>
+</html>
